@@ -40,19 +40,10 @@ class _ItemRowState extends State<ItemRow> {
                   crossAxisAlignment: CrossAxisAlignment.stretch, //add this
                   children: <Widget>[
                     Expanded(
-                      child: SizedBox(
-                        width: 300,
-                        child: new Hero(
-                            tag: 'dash' + _dataMeals.idMeal,
-                            child: new CachedNetworkImage(
-                              imageUrl: _dataMeals.strMealThumb,
-                              fit: BoxFit.contain,
-                            )),
-                      ),
-//                      child: Hero(tag: 'dash'+_dataMeals.idMeal, child: CachedNetworkImage(
-//                        imageUrl: _dataMeals.strMealThumb,
-//                        fit: BoxFit.fill, // add this
-//                      ),)
+                      child: Hero(tag: 'dash'+_dataMeals.idMeal, child: CachedNetworkImage(
+                        imageUrl: _dataMeals.strMealThumb,
+                        fit: BoxFit.fill, // add this
+                      ),)
                     ),
                     Container(
                         padding: EdgeInsets.all(10),
