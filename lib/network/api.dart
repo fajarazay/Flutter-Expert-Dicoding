@@ -2,14 +2,9 @@ const baseUrl = "https://www.themealdb.com/api/json/v1/";
 const apiKey = "1";
 
 class API {
-  String getBreakfastList() {
-    var urlBreakfast = '$baseUrl$apiKey/filter.php?c=Breakfast';
-    return urlBreakfast;
-  }
-
-  String getDessertList() {
-    var urlDessert = '$baseUrl$apiKey/filter.php?c=Dessert';
-    return urlDessert;
+  String getMealsList(String categoryMeals) {
+    var urlGetMeals = '$baseUrl$apiKey/filter.php?c=$categoryMeals';
+    return urlGetMeals;
   }
 
   String getDetailMeals(String id) {
