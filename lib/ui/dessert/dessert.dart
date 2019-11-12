@@ -9,7 +9,6 @@ class Dessert extends StatelessWidget {
   Widget build(BuildContext context) {
     ServiceNetwork serviceNetwork = ServiceNetwork();
 
-    // TODO: implement build
     return Scaffold(
       body: FutureBuilder<List<Meal>>(
         future: serviceNetwork.loadData('dessert'),
