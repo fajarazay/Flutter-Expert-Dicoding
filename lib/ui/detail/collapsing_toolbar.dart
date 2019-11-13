@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expert_dicoding/model/meals.dart';
 
@@ -8,7 +9,6 @@ class CollapsingToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SliverOverlapAbsorber(
         child: SliverSafeArea(
           top: false,
@@ -18,16 +18,19 @@ class CollapsingToolbar extends StatelessWidget {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
                 centerTitle: false,
-                title: Text(
-                  meal.strMeal,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                title: Container(
+                  width: 300,
+                  child: Text(
+                    meal.strMeal,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 background: Container(
                   child: Hero(
-                    tag: 'dash' + meal.idMeal,
-                    child: Image.network(
-                      meal.strMealThumb,
+                    tag: meal.strMeal,
+                    child: CachedNetworkImage(
+                      imageUrl: meal.strMealThumb,
                       fit: BoxFit.fill,
                     ),
                   ),

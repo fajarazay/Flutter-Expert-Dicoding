@@ -9,7 +9,6 @@ class ListMeals extends StatefulWidget {
 
   @override
   _ListMeals createState() {
-    // TODO: implement createState
     return _ListMeals();
   }
 }
@@ -19,7 +18,6 @@ class _ListMeals extends State<ListMeals> {
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(right: 10, left: 10),
-        // height: 900,
         child: Padding(
           padding: EdgeInsets.all(0),
           child: GridView.count(

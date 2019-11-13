@@ -1,18 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_expert_dicoding/blocs/mealBloc.dart';
 import 'package:flutter_expert_dicoding/model/meals.dart';
-import 'package:flutter_expert_dicoding/network/service_network.dart';
 import 'package:flutter_expert_dicoding/ui/itemlist/list.dart';
 
-class Dessert extends StatelessWidget {
+class Dessert extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    ServiceNetwork serviceNetwork = ServiceNetwork();
+  State<StatefulWidget> createState() => DessertState();
+}
 
-    return Scaffold(
-      body: FutureBuilder<List<Meal>>(
-        future: serviceNetwork.loadData('dessert'),
-        builder: (context, snapshot) {
+class DessertState extends State<Dessert> {
+  final mealBloc = MealBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    mealBloc.fetchAllDataMeals('Dessert');
+  }
+
+  @override
+  void dispose() {
+    mealBloc.dispose();
+    super.dispose();
+  }
+
+  getListDessert() {
+    return (StreamBuilder(
+        stream: mealBloc.getAllMeals,
+        builder: (context, AsyncSnapshot<List<Meal>> snapshot) {
           if (snapshot.hasData) {
             return ListMeals(listDataMeals: snapshot.data);
           } else if (snapshot.hasError) {
@@ -24,10 +39,12 @@ class Dessert extends StatelessWidget {
           }
           // By default, show a loading spinner.
           return Center(
-              // child: Text(snapshot.data.toString()),
               child: CircularProgressIndicator());
-        },
-      ),
-    );
+        }));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: getListDessert());
   }
 }

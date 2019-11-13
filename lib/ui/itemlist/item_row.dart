@@ -13,7 +13,6 @@ class ItemRow extends StatefulWidget {
 
   @override
   _ItemRowState createState() {
-    // TODO: implement createState
     return _ItemRowState(dataMeals);
   }
 }
@@ -40,11 +39,13 @@ class _ItemRowState extends State<ItemRow> {
                   crossAxisAlignment: CrossAxisAlignment.stretch, //add this
                   children: <Widget>[
                     Expanded(
-                      child: Hero(tag: 'dash'+_dataMeals.idMeal, child: CachedNetworkImage(
+                        child: Hero(
+                      tag: _dataMeals.strMeal,
+                      child: CachedNetworkImage(
                         imageUrl: _dataMeals.strMealThumb,
                         fit: BoxFit.fill, // add this
-                      ),)
-                    ),
+                      ),
+                    )),
                     Container(
                         padding: EdgeInsets.all(10),
                         child: Center(
@@ -52,8 +53,7 @@ class _ItemRowState extends State<ItemRow> {
                             _dataMeals.strMeal,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 14),
+                            style: TextStyle(fontSize: 14),
                           ),
                         )),
                   ],

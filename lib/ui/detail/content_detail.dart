@@ -8,7 +8,6 @@ class ContentDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SingleChildScrollView(
         child: Container(
             margin: EdgeInsets.only(top: 16, bottom: 16, right: 8, left: 8),
@@ -113,9 +112,7 @@ class ContentDetail extends StatelessWidget {
                                 ...listIngredients()
                                     .where(
                                         (i) => i != null && i.trim().isNotEmpty)
-                                    .map((value) => Text(
-                                          value
-                                        ))
+                                    .map((value) => Text(value))
                                     .toList()
                               ],
                             ),
@@ -207,4 +204,3 @@ class ContentDetail extends StatelessWidget {
     return list;
   }
 }
-

@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter_expert_dicoding/model/detail_meals.dart';
 import 'package:flutter_expert_dicoding/model/meals.dart';
-import 'package:flutter_expert_dicoding/network/api.dart';
 import 'package:http/http.dart' as http;
 
-class ServiceNetwork {
-  Future<List<Meal>> loadData(String dataType) async {
-    String endpoint = API().getMealsList(dataType);
+class ApiProvider {
+  final baseUrl = "https://www.themealdb.com/api/json/v1/1/";
 
+  Future<List<Meal>> fetchDataMeals(String dataType) async {
+    String endpoint = '$baseUrl/filter.php?c=$dataType';
     http.Response response = await http.get(endpoint);
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
@@ -20,15 +20,13 @@ class ServiceNetwork {
     }
   }
 
-  Future<List<Meals>> loadDataDetail(String id) async {
-    String endpoint = API().getDetailMeals(id);
+  Future<DetailMeals> fetchDataDetailMeal(String id) async {
+    String endpoint = '$baseUrl/lookup.php?i=$id';
 
     http.Response response = await http.get(endpoint);
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
-      return (jsonResponse['meals'] as List)
-          .map((data) => Meals.fromJson(data))
-          .toList();
+      return DetailMeals.fromJson(jsonResponse);
     } else {
       throw Exception('Failed load data');
     }
