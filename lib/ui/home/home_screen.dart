@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_expert_dicoding/ui/breakfast/breakfast.dart';
 import 'package:flutter_expert_dicoding/ui/dessert/dessert.dart';
+import 'package:flutter_expert_dicoding/ui/seafood/seafood.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -13,12 +13,12 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Color(0xff13c5c6),
           bottom: TabBar(
             indicatorColor: Colors.white,
-            tabs: <Widget>[Tab(text: 'Breakfast'), Tab(text: 'Dessert')],
+            tabs: <Widget>[Tab(text: 'Seafood'), Tab(text: 'Dessert')],
           ),
           title: Text('Yummy Flutter~'),
         ),
         body: TabBarView(
-          children: <Widget>[Breakfast(), Dessert()],
+          children: <Widget>[Seafood(), Dessert()],
         ),
       ),
     );

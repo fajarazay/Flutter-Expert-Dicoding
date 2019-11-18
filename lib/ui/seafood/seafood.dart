@@ -4,18 +4,18 @@ import 'package:flutter_expert_dicoding/blocs/mealBloc.dart';
 import 'package:flutter_expert_dicoding/model/meals.dart';
 import 'package:flutter_expert_dicoding/ui/itemlist/list.dart';
 
-class Breakfast extends StatefulWidget {
+class Seafood extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => BreakfastState();
+  State<StatefulWidget> createState() => SeafoodState();
 }
 
-class BreakfastState extends State<Breakfast> {
+class SeafoodState extends State<Seafood> {
   final mealBloc = MealBloc();
 
   @override
   void initState() {
     super.initState();
-    mealBloc.fetchAllDataMeals('Breakfast');
+    mealBloc.fetchAllDataMeals('Seafood');
   }
 
   @override
@@ -24,7 +24,7 @@ class BreakfastState extends State<Breakfast> {
     super.dispose();
   }
 
-  getListBreakfast() {
+  getListSeafood() {
     return (StreamBuilder(
         stream: mealBloc.getAllMeals,
         builder: (context, AsyncSnapshot<List<Meal>> snapshot) {
@@ -45,6 +45,6 @@ class BreakfastState extends State<Breakfast> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: getListBreakfast());
+    return Scaffold(body: getListSeafood());
   }
 }

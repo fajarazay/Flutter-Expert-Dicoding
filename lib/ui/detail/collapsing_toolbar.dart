@@ -10,6 +10,7 @@ class CollapsingToolbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverOverlapAbsorber(
+
         child: SliverSafeArea(
           top: false,
           sliver: SliverAppBar(
@@ -20,6 +21,7 @@ class CollapsingToolbar extends StatelessWidget {
                 centerTitle: false,
                 title: Container(
                   width: 300,
+
                   child: Text(
                     meal.strMeal,
                     maxLines: 1,
@@ -37,6 +39,7 @@ class CollapsingToolbar extends StatelessWidget {
                 )),
           ),
         ),
-        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context));
+        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+    );
   }
 }
