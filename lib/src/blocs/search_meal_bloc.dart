@@ -3,14 +3,14 @@ import 'package:flutter_expert_dicoding/src/model/meals.dart';
 import 'package:flutter_expert_dicoding/src/resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MealBloc {
+class SearchMealBloc {
   final _repository = Repository();
   final _mealsFetcher = PublishSubject<List<Meal>>();
 
   Observable<List<Meal>> get getAllMeals => _mealsFetcher.stream;
 
-  fetchAllDataMeals(String dataType) async {
-    List<Meal> meals = await _repository.fetchListMeals(dataType);
+  fetchAllDataSearchMeals(String mealName) async {
+    List<Meal> meals = await _repository.fetchListSearchMeals(mealName);
     _mealsFetcher.sink.add(meals);
   }
 

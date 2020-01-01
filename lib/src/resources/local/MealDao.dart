@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:flutter_expert_dicoding/src/resources/local/entity/seafood_entity.dart';
+import 'package:flutter_expert_dicoding/src/model/detail_meals.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'entity/dessert_entity.dart';
+import 'entity/meal_entity.dart';
 
 class MealDao {
   static MealDao _mealDao;
@@ -21,7 +21,7 @@ class MealDao {
 
   Future<Database> initDb() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'dicoding.db';
+    String path = directory.path + 'dicoding_meal.db';
 
     var todoDatabase = openDatabase(path, version: 1, onCreate: _createDb);
 
@@ -53,38 +53,57 @@ class MealDao {
     return _database;
   }
 
-  Future<List<Map<String, dynamic>>> select(String category) async {
+  Future<List<Map<String, dynamic>>> selectByCategory(String category) async {
     Database db = await this.database;
     var mapList = await db.query("meal",
-      orderBy: 'id', where: 'strCategory=?', whereArgs: [category]);
+        where: 'strCategory=?', whereArgs: [category], orderBy: 'id');
     return mapList;
   }
 
-  Future<List<Dessert>> getFavDessert() async {
-    var dessertMapList = await select("Dessert");
+  Future<List<Map<String, dynamic>>> selectByIdMeal(String idMeal) async {
+    Database db = await this.database;
+    var mapList = await db.query("meal",
+        where: 'idMeal=?', whereArgs: [idMeal], orderBy: 'id');
+    return mapList;
+  }
+
+  Future<DetailMeals> getFavMealById(idMeal) async {
+    var listMealEntity = await selectByIdMeal(idMeal);
+    print("listMealEntity.isEmpty " + listMealEntity.isEmpty.toString());
+    return listMealEntity.isEmpty
+        ? null
+        : DetailMeals.fromJson(listMealEntity.first);
+  }
+
+  Future<List<MealEntity>> getFavDessert() async {
+    var dessertMapList = await selectByCategory("Dessert");
     int count = dessertMapList.length;
-    List<Dessert> dessertList = List<Dessert>();
+    List<MealEntity> dessertList = List<MealEntity>();
     for (int i = 0; i < count; i++) {
-      print(dessertMapList[i]);
-      dessertList.add(Dessert.fromJson(dessertMapList[i]));
+      dessertList.add(MealEntity.fromJson(dessertMapList[i]));
     }
     return dessertList;
   }
 
-  Future<List<Seafood>> getFavSeafood() async {
-    var seafoodMapList = await select("Seafood");
+  Future<List<MealEntity>> getFavSeafood() async {
+    var seafoodMapList = await selectByCategory("Seafood");
     int count = seafoodMapList.length;
-    List<Seafood> seafoodList = List<Seafood>();
+    List<MealEntity> seafoodList = List<MealEntity>();
     for (int i = 0; i < count; i++) {
-      print(seafoodMapList[i]);
-      seafoodList.add(Seafood.fromJson(seafoodMapList[i]));
+      seafoodList.add(MealEntity.fromJson(seafoodMapList[i]));
     }
     return seafoodList;
   }
 
-  Future<int> insertDessert(Dessert dessert) async {
+  Future<int> insertMeal(MealEntity data) async {
     Database db = await this.database;
-    int count = await db.insert('meal', dessert.toJson());
+    int count = await db.insert('meal', data.toJson());
+    return count;
+  }
+
+  Future<int> deleteMeal(int idMeal) async {
+    Database db = await this.database;
+    int count = await db.delete('meal', where: 'idMeal=?', whereArgs: [idMeal]);
     return count;
   }
 }

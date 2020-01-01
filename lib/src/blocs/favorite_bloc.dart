@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expert_dicoding/src/model/meals.dart';
-import 'package:flutter_expert_dicoding/src/resources/local/entity/dessert_entity.dart';
-import 'package:flutter_expert_dicoding/src/resources/local/entity/seafood_entity.dart';
+import 'package:flutter_expert_dicoding/src/resources/local/entity/meal_entity.dart';
 import 'package:flutter_expert_dicoding/src/resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FavoriteBloc {
   final _repository = Repository();
-  final _dessertFetcher = PublishSubject<List<Dessert>>();
-  final _seafoodFetcher = PublishSubject<List<Seafood>>();
+  final _dessertFetcher = PublishSubject<List<MealEntity>>();
+  final _seafoodFetcher = PublishSubject<List<MealEntity>>();
 
-  Observable<List<Dessert>> get getListFavDessert => _dessertFetcher.stream;
-  Observable<List<Seafood>> get getListFavSeafood => _seafoodFetcher.stream;
+  Observable<List<MealEntity>> get getListFavDessert => _dessertFetcher.stream;
+
+  Observable<List<MealEntity>> get getListFavSeafood => _seafoodFetcher.stream;
 
   getAllDataFavDessert() async {
-    List<Dessert> dessert = await _repository.getFavDessert();
+    List<MealEntity> dessert = await _repository.getFavDessert();
     _dessertFetcher.sink.add(dessert);
   }
 
   getAllDataFavSeafood() async {
-    List<Seafood> seafood = await _repository.getFavSeafood();
+    List<MealEntity> seafood = await _repository.getFavSeafood();
     _seafoodFetcher.sink.add(seafood);
   }
 
-  goToMealDetail(Meal meal) {
+  goToMealDetail(MealEntity meal) {
     Navigator.pushNamed(_context, '/mealDetail', arguments: meal);
   }
 

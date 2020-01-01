@@ -4,7 +4,7 @@ import 'package:flutter_expert_dicoding/src/model/detail_meals.dart';
 class ContentDetail extends StatelessWidget {
   final Meals detailMeals;
 
-  const ContentDetail({this.detailMeals});
+  ContentDetail({this.detailMeals});
 
   @override
   Widget build(BuildContext context) {

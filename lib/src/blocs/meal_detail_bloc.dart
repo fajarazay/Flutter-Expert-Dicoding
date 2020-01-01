@@ -1,13 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter_expert_dicoding/src/model/detail_meals.dart';
 import 'package:flutter_expert_dicoding/src/resources/local/MealDao.dart';
-import 'package:flutter_expert_dicoding/src/resources/local/entity/dessert_entity.dart';
+import 'package:flutter_expert_dicoding/src/resources/local/entity/meal_entity.dart';
 import 'package:flutter_expert_dicoding/src/resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MealDetailBloc {
-  Dessert _dessert;
+  MealEntity _dataMeal;
   final _repository = Repository();
   final _dbHelper = MealDao();
   final _detailMealFetcher = BehaviorSubject<DetailMeals>();
@@ -16,17 +14,19 @@ class MealDetailBloc {
   Observable<DetailMeals> get getDetailMeal => _detailMealFetcher.stream;
 
   //get stream
-  Stream<bool> get isFavorite => _isFavorite.stream;
-
-  Function(bool) get isFav => _isFavorite.sink.add;
-
-  // Input stream for adding new notes. We'll call this from our pages.
-  final _controller = StreamController<DetailMeals>.broadcast();
-
-  StreamSink<DetailMeals> get inAddNote => _controller.sink;
+  Observable<bool> get isFavorite => _isFavorite.stream;
 
   fetchDataDetailMeal(String idMeal) async {
-    DetailMeals detailMeal = await _repository.fetchDetailMeal(idMeal);
+    var isExistInDB = await _repository.getDataFromDB(idMeal);
+    print("isExistInDB bloc ");
+    print(isExistInDB.toString());
+    isExistInDB == null
+        ? _isFavorite.sink.add(false)
+        : _isFavorite.sink.add(true);
+
+    DetailMeals detailMeal = isExistInDB == null
+        ? await _repository.fetchDetailMeal(idMeal)
+        : DetailMeals.fromJson(isExistInDB.toJson());
     _detailMealFetcher.sink.add(detailMeal);
   }
 
@@ -36,18 +36,17 @@ class MealDetailBloc {
   }
 
   insert(DetailMeals data) async {
-    _dessert = Dessert.fromJson(data.meals[0].toJson());
-    int a = await _dbHelper.insertDessert(_dessert);
+    _dataMeal = MealEntity.fromJson(data.meals.first.toJson());
+    int a = await _dbHelper.insertMeal(_dataMeal);
     if (a > 0) {
-      isFav(true);
+      _isFavorite.sink.add(true);
     } else {
-      isFav(false);
+      _isFavorite.sink.add(false);
     }
   }
 
   dispose() {
     _detailMealFetcher.close();
     _isFavorite.close();
-    _controller.close();
   }
 }

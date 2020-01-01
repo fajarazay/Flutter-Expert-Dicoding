@@ -3,10 +3,17 @@ class DetailMeals {
 
   DetailMeals({this.meals});
 
-  DetailMeals.fromJson(Map<String, dynamic> json) {
-    if (json['meals'] != null) {
+  DetailMeals.fromJson(Map<String, dynamic> data) {
+    if (data['meals'] != null) {
       meals = new List<Meals>();
-      json['meals'].forEach((v) {
+      data['meals'].forEach((v) {
+        meals.add(new Meals.fromJson(v));
+      });
+    } else {
+      var meal = {};
+      meal["meals"] = [data];
+      meals = new List<Meals>();
+      meal['meals'].forEach((v) {
         meals.add(new Meals.fromJson(v));
       });
     }

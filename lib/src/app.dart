@@ -7,6 +7,7 @@ import 'package:flutter_expert_dicoding/src/blocs/splash_provider.dart';
 import 'package:flutter_expert_dicoding/src/model/meals.dart';
 import 'package:flutter_expert_dicoding/src/ui/detail/detail_meals_screen.dart';
 import 'package:flutter_expert_dicoding/src/ui/root/root_screen.dart';
+import 'package:flutter_expert_dicoding/src/ui/search/search_meal_screen.dart';
 import 'package:flutter_expert_dicoding/src/ui/splash/splash_screen.dart';
 
 class App extends StatelessWidget {
@@ -43,6 +44,7 @@ class App extends StatelessWidget {
       return result;
     }
 
+    print(settings.name);
     switch (getRouteName(settings.name)) {
       case '/':
         return MaterialPageRoute(builder: (context) {
@@ -62,10 +64,12 @@ class App extends StatelessWidget {
           final Meal meal = settings.arguments;
           return DetailMealsScreen(
             meal: meal,
-            dataType: 1,
           );
         });
-
+      case 'searchMeal':
+        return MaterialPageRoute(builder: (context) {
+          return SearchMealScreen();
+        });
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

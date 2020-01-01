@@ -2,13 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expert_dicoding/src/model/meals.dart';
-import 'package:flutter_expert_dicoding/src/resources/local/entity/meal_entity.dart';
 
-class ItemRow extends StatelessWidget {
+class ItemRowSearch extends StatelessWidget {
   final Meal dataMeals;
-  final MealEntity dataFav;
 
-  ItemRow({this.dataMeals, this.dataFav});
+  ItemRowSearch({this.dataMeals});
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +22,9 @@ class ItemRow extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                     child: Hero(
-                  tag: dataMeals != null ? dataMeals.strMeal : dataFav.strMeal,
+                  tag: dataMeals.strMeal,
                   child: CachedNetworkImage(
-                    imageUrl: dataMeals != null
-                        ? dataMeals.strMealThumb
-                        : dataFav.strMealThumb,
+                    imageUrl: dataMeals.strMealThumb,
                     fit: BoxFit.fill,
                   ),
                 )),
@@ -36,7 +32,7 @@ class ItemRow extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     child: Center(
                       child: Text(
-                        dataMeals != null ? dataMeals.strMeal : dataFav.strMeal,
+                        dataMeals.strMeal,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 14),

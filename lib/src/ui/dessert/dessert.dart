@@ -26,8 +26,6 @@ class Dessert extends StatelessWidget {
             return
             ListMeals(
                       listDataMeals: snapshot.data,
-//                listDataFavDessert: null,
-//                listDataFavSeafood: null
                  );
           } else if (snapshot.hasError) {
             return Center(

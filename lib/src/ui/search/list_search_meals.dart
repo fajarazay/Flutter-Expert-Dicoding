@@ -2,16 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_expert_dicoding/src/blocs/meal_bloc.dart';
 import 'package:flutter_expert_dicoding/src/blocs/meal_provider.dart';
 import 'package:flutter_expert_dicoding/src/model/meals.dart';
-import 'package:flutter_expert_dicoding/src/resources/local/entity/meal_entity.dart';
+import 'package:flutter_expert_dicoding/src/ui/search/item_row_search.dart';
 
-import 'item_row.dart';
-
-class ListMeals extends StatelessWidget {
+class ListSearchMeals extends StatelessWidget {
   final List<Meal> listDataMeals;
 
-  final List<MealEntity> listDataFav;
-
-  ListMeals({this.listDataMeals, this.listDataFav});
+  ListSearchMeals({this.listDataMeals});
 
   @override
   Widget build(BuildContext context) {
@@ -34,18 +30,9 @@ class ListMeals extends StatelessWidget {
     if (listDataMeals != null) {
       return listDataMeals.map((Meal dataMeals) {
         return GestureDetector(
-            child: ItemRow(dataMeals: dataMeals),
+            child: ItemRowSearch(dataMeals: dataMeals),
             onTap: () {
               bloc.goToMealDetail(dataMeals);
-            });
-      }).toList();
-    } else if (listDataFav != null) {
-      return listDataFav.map((MealEntity dataFav) {
-        Meal meal = Meal.fromJson(dataFav.toJson());
-        return GestureDetector(
-            child: ItemRow(dataFav: dataFav),
-            onTap: () {
-              bloc.goToMealDetail(meal);
             });
       }).toList();
     }

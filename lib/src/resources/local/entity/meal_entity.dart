@@ -1,6 +1,33 @@
+class DetailMealEntity {
+  List<MealEntity> meals;
 
-class Seafood {
+  DetailMealEntity({this.meals});
 
+  DetailMealEntity.fromJson(Map<String, dynamic> data) {
+    if (data['meals'] != null) {
+      meals = new List<MealEntity>();
+      data['meals'].forEach((v) {
+        meals.add(new MealEntity.fromJson(v));
+      });
+    }
+//    else {
+//      var meal = {};
+//      meal["meals"] = data;
+//      String str = json.encode(meal);
+//      print('no json meals: ' + str);
+//    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.meals != null) {
+      data['meals'] = this.meals.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class MealEntity {
   String idMeal;
   String strMeal;
   String strDrinkAlternate;
@@ -53,60 +80,60 @@ class Seafood {
   String strSource;
   String dateModified;
 
-  Seafood(
+  MealEntity(
       {this.idMeal,
-        this.strMeal,
-        this.strDrinkAlternate,
-        this.strCategory,
-        this.strArea,
-        this.strInstructions,
-        this.strMealThumb,
-        this.strTags,
-        this.strYoutube,
-        this.strIngredient1,
-        this.strIngredient2,
-        this.strIngredient3,
-        this.strIngredient4,
-        this.strIngredient5,
-        this.strIngredient6,
-        this.strIngredient7,
-        this.strIngredient8,
-        this.strIngredient9,
-        this.strIngredient10,
-        this.strIngredient11,
-        this.strIngredient12,
-        this.strIngredient13,
-        this.strIngredient14,
-        this.strIngredient15,
-        this.strIngredient16,
-        this.strIngredient17,
-        this.strIngredient18,
-        this.strIngredient19,
-        this.strIngredient20,
-        this.strMeasure1,
-        this.strMeasure2,
-        this.strMeasure3,
-        this.strMeasure4,
-        this.strMeasure5,
-        this.strMeasure6,
-        this.strMeasure7,
-        this.strMeasure8,
-        this.strMeasure9,
-        this.strMeasure10,
-        this.strMeasure11,
-        this.strMeasure12,
-        this.strMeasure13,
-        this.strMeasure14,
-        this.strMeasure15,
-        this.strMeasure16,
-        this.strMeasure17,
-        this.strMeasure18,
-        this.strMeasure19,
-        this.strMeasure20,
-        this.strSource,
-        this.dateModified});
+      this.strMeal,
+      this.strDrinkAlternate,
+      this.strCategory,
+      this.strArea,
+      this.strInstructions,
+      this.strMealThumb,
+      this.strTags,
+      this.strYoutube,
+      this.strIngredient1,
+      this.strIngredient2,
+      this.strIngredient3,
+      this.strIngredient4,
+      this.strIngredient5,
+      this.strIngredient6,
+      this.strIngredient7,
+      this.strIngredient8,
+      this.strIngredient9,
+      this.strIngredient10,
+      this.strIngredient11,
+      this.strIngredient12,
+      this.strIngredient13,
+      this.strIngredient14,
+      this.strIngredient15,
+      this.strIngredient16,
+      this.strIngredient17,
+      this.strIngredient18,
+      this.strIngredient19,
+      this.strIngredient20,
+      this.strMeasure1,
+      this.strMeasure2,
+      this.strMeasure3,
+      this.strMeasure4,
+      this.strMeasure5,
+      this.strMeasure6,
+      this.strMeasure7,
+      this.strMeasure8,
+      this.strMeasure9,
+      this.strMeasure10,
+      this.strMeasure11,
+      this.strMeasure12,
+      this.strMeasure13,
+      this.strMeasure14,
+      this.strMeasure15,
+      this.strMeasure16,
+      this.strMeasure17,
+      this.strMeasure18,
+      this.strMeasure19,
+      this.strMeasure20,
+      this.strSource,
+      this.dateModified});
 
-  Seafood.fromJson(Map<String, dynamic> json) {
+  MealEntity.fromJson(Map<String, dynamic> json) {
     idMeal = json['idMeal'];
     strMeal = json['strMeal'];
     strDrinkAlternate = json['strDrinkAlternate'];

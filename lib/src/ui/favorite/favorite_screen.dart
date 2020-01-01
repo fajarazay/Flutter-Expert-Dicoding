@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expert_dicoding/src/ui/favorite/fav_dessert.dart';
+import 'package:flutter_expert_dicoding/src/ui/favorite/fav_seafood.dart';
 
 class FavoriteScreen extends StatelessWidget {
   @override
@@ -19,7 +20,7 @@ class FavoriteScreen extends StatelessWidget {
             ],
           ),
           body: TabBarView(
-            children: <Widget>[FavDessert(), FavDessert()],
+            children: <Widget>[FavDessert(), FavSeafood()],
           ),
 
 //          body: Container(

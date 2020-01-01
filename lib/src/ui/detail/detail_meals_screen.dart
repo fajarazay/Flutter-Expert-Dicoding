@@ -10,16 +10,16 @@ import 'content_detail.dart';
 
 class DetailMealsScreen extends StatelessWidget {
   final Meal meal;
-  final int dataType;
 
-  DetailMealsScreen({this.meal, this.dataType});
+  DetailMealsScreen({this.meal});
 
   @override
   Widget build(BuildContext context) {
     final MealDetailBloc bloc = MealDetailProvider.of(context);
     bloc.fetchDataDetailMeal(meal.idMeal);
     return Scaffold(
-        body: NestedScrollView(
+        body:
+        NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) =>
                 [CollapsingToolbar(meal: meal)],
             body: getDetailMeal(bloc)),
@@ -30,10 +30,10 @@ class DetailMealsScreen extends StatelessWidget {
           child: StreamBuilder(
               stream: bloc.isFavorite,
               builder: (context, AsyncSnapshot<bool> snapshot) {
-                return snapshot.data == null
-                    ? Icon(Icons.favorite_border)
-                    : Icon(Icons.favorite);
-                //return Text(snapshot.data.toString());
+                print("snapshot.data isFavorite " + snapshot.data.toString());
+                return snapshot.data == true
+                    ? Icon(Icons.favorite)
+                    : Icon(Icons.favorite_border);
               }),
         ));
   }
@@ -43,8 +43,7 @@ class DetailMealsScreen extends StatelessWidget {
         stream: bloc.getDetailMeal,
         builder: (context, AsyncSnapshot<DetailMeals> snapshot) {
           if (snapshot.hasData) {
-            //bloc.onPressFavButton(snapshot.data);
-            return ContentDetail(detailMeals: snapshot.data.meals[0]);
+            return ContentDetail(detailMeals: snapshot.data.meals.first);
           } else if (snapshot.hasError) {
             return Center(
                 child: Text(

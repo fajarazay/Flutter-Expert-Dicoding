@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expert_dicoding/src/blocs/favorite_bloc.dart';
 import 'package:flutter_expert_dicoding/src/blocs/favorite_provider.dart';
-import 'package:flutter_expert_dicoding/src/resources/local/entity/dessert_entity.dart';
+import 'package:flutter_expert_dicoding/src/resources/local/entity/meal_entity.dart';
 import 'package:flutter_expert_dicoding/src/ui/itemlist/list.dart';
 
 class FavDessert extends StatelessWidget {
-  final Dessert dessert;
+  final MealEntity dessert;
 
   FavDessert({this.dessert});
 
@@ -20,9 +20,9 @@ class FavDessert extends StatelessWidget {
   getListFavDessert(FavoriteBloc bloc) {
     return (StreamBuilder(
         stream: bloc.getListFavDessert,
-        builder: (context, AsyncSnapshot<List<Dessert>> snapshot) {
+        builder: (context, AsyncSnapshot<List<MealEntity>> snapshot) {
           if (snapshot.hasData) {
-            return ListMeals(listDataFavDessert: snapshot.data);
+            return ListMeals(listDataFav: snapshot.data);
           } else if (snapshot.hasError) {
             return Center(
                 child: Text(
