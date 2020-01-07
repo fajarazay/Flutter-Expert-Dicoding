@@ -99,9 +99,6 @@ class RootScreen extends StatelessWidget {
 class DataSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
-    final RootBloc bloc = RootProvider.of(context);
-    bloc.fetchAllDataSearchMeals(query);
-
     return [
       IconButton(
           icon: Icon(Icons.clear),
@@ -126,6 +123,7 @@ class DataSearch extends SearchDelegate<String> {
     final RootBloc bloc = RootProvider.of(context);
 
     if (query.length > 2) {
+      bloc.fetchAllDataSearchMeals(query);
       return (StreamBuilder(
           stream: bloc.getAllMeals,
           builder: (context, AsyncSnapshot<List<Meal>> snapshot) {
@@ -158,6 +156,7 @@ class DataSearch extends SearchDelegate<String> {
     final RootBloc bloc = RootProvider.of(context);
 
     if (query.length > 2) {
+      bloc.fetchAllDataSearchMeals(query);
       return (StreamBuilder(
           stream: bloc.getAllMeals,
           builder: (context, AsyncSnapshot<List<Meal>> snapshot) {

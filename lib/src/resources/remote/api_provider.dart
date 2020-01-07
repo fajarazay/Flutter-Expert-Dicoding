@@ -12,9 +12,14 @@ class ApiProvider {
     http.Response response = await http.get(endpoint);
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
-      return (jsonResponse['meals'] as List)
-          .map((data) => Meal.fromJson(data))
-          .toList();
+      print("jsonResponse " + jsonResponse.toString());
+      print("jsonResponse['meals'] " + jsonResponse['meals'].toString());
+
+      if (jsonResponse['meals'] != null) {
+        return (jsonResponse['meals'] as List)
+            .map((data) => Meal.fromJson(data))
+            .toList();
+      }
     } else {
       throw Exception('Failed load data');
     }
