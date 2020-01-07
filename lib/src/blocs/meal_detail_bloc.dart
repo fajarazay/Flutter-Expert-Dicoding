@@ -30,7 +30,7 @@ class MealDetailBloc {
 
   onPressFavButton() {
     DetailMeals detailMeals = _detailMealFetcher.value;
-    insert(detailMeals);
+    _isFavorite.value ? delete(detailMeals) : insert(detailMeals);
   }
 
   insert(DetailMeals data) async {
@@ -40,6 +40,16 @@ class MealDetailBloc {
       _isFavorite.sink.add(true);
     } else {
       _isFavorite.sink.add(false);
+    }
+  }
+
+  delete(DetailMeals data) async {
+    _dataMeal = MealEntity.fromJson(data.meals.first.toJson());
+    int isSuccessDelete = await _dbHelper.deleteMeal(_dataMeal.idMeal);
+    if (isSuccessDelete > 0) {
+      _isFavorite.sink.add(false);
+    } else {
+      _isFavorite.sink.add(true);
     }
   }
 

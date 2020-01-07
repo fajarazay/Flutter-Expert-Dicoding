@@ -100,7 +100,7 @@ class MealDao {
     return count;
   }
 
-  Future<int> deleteMeal(int idMeal) async {
+  Future<int> deleteMeal(String idMeal) async {
     Database db = await this.database;
     int count = await db.delete('meal', where: 'idMeal=?', whereArgs: [idMeal]);
     return count;
