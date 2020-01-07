@@ -11,7 +11,7 @@ class MealProvider extends InheritedWidget {
   bool updateShouldNotify(_) => true;
 
   static MealBloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(MealProvider) as MealProvider)
-        .bloc;
+    return (context.dependOnInheritedWidgetOfExactType<MealProvider>()).bloc;
+
   }
 }

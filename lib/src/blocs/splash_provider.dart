@@ -11,8 +11,6 @@ class SplashProvider extends InheritedWidget {
   bool updateShouldNotify(_) => true;
 
   static SplashBloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(SplashProvider)
-            as SplashProvider)
-        .bloc;
+    return (context.dependOnInheritedWidgetOfExactType<SplashProvider>()).bloc;
   }
 }

@@ -23,31 +23,6 @@ class FavoriteScreen extends StatelessWidget {
             children: <Widget>[FavDessert(), FavSeafood()],
           ),
 
-//          body: Container(
-//        child: Column(
-//          children: <Widget>[
-//            Container(
-//              color: Color(0xff13c5c6),
-//              child: TabBar(
-//                labelColor: Colors.white,
-//                unselectedLabelColor: Colors.grey[400],
-//                indicatorColor: Color(0xffEDCE4A),
-//                indicatorWeight: 5,
-//                tabs: [
-//                  Tab(text: "Dessert"),
-//                  Tab(text: "Seafood"),
-//                ],
-//              ),
-//            ),
-//            TabBarView(
-//              children: <Widget>[
-//                FavDessert(),
-//                FavDessert()
-//              ],
-//            )
-//          ],
-//        ),
-//      )
         ));
   }
 }

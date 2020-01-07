@@ -161,16 +161,25 @@ class DataSearch extends SearchDelegate<String> {
       return (StreamBuilder(
           stream: bloc.getAllMeals,
           builder: (context, AsyncSnapshot<List<Meal>> snapshot) {
+            print("snapshot.hasData " + snapshot.hasData.toString());
+            print("snapshot.data " + snapshot.data.toString());
             if (snapshot.hasData) {
-              return ListSearchMeals(
-                listDataMeals: snapshot.data,
-              );
+              if (snapshot.data != null) {
+                return ListSearchMeals(
+                  listDataMeals: snapshot.data,
+                );
+              } else {
+                return Container(
+                    child: Center(
+                      child: Text("Data not found"),
+                    ));
+              }
             } else if (snapshot.hasError) {
               return Center(
                   child: Text(
-                "${snapshot.error}",
-                textAlign: TextAlign.center,
-              ));
+                    "${snapshot.error}",
+                    textAlign: TextAlign.center,
+                  ));
             } else if (snapshot.data == null) {
               return Container(
                   child: Center(

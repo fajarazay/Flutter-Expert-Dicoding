@@ -11,7 +11,7 @@ class RootProvider extends InheritedWidget {
   bool updateShouldNotify(_) => true;
 
   static RootBloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(RootProvider) as RootProvider)
-        .bloc;
+    return (context.dependOnInheritedWidgetOfExactType<RootProvider>()).bloc;
+
   }
 }

@@ -96,13 +96,12 @@ class MealDao {
 
   Future<int> insertMeal(MealEntity data) async {
     Database db = await this.database;
-    int count = await db.insert('meal', data.toJson());
-    return count;
+    return await db.insert('meal', data.toJson());
   }
 
   Future<int> deleteMeal(String idMeal) async {
     Database db = await this.database;
-    int count = await db.delete('meal', where: 'idMeal=?', whereArgs: [idMeal]);
-    return count;
+    return await db.delete('meal', where: 'idMeal=?', whereArgs: [idMeal]);
+    ;
   }
 }

@@ -11,8 +11,8 @@ class FavoriteProvider extends InheritedWidget {
   bool updateShouldNotify(_) => true;
 
   static FavoriteBloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(FavoriteProvider)
-            as FavoriteProvider)
+    return (context.dependOnInheritedWidgetOfExactType<FavoriteProvider>())
         .bloc;
+
   }
 }
