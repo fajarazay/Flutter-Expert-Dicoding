@@ -35,6 +35,7 @@ class ListMeals extends StatelessWidget {
       return listDataMeals.map((Meal dataMeals) {
         return GestureDetector(
             child: ItemRow(dataMeals: dataMeals),
+            key: Key("tap_item_meals_" + dataMeals.idMeal),
             onTap: () {
               bloc.goToMealDetail(dataMeals);
             });

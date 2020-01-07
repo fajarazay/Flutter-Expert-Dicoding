@@ -13,13 +13,11 @@ class MealDetailBloc {
 
   Observable<DetailMeals> get getDetailMeal => _detailMealFetcher.stream;
 
-  //get stream
   Observable<bool> get isFavorite => _isFavorite.stream;
 
   fetchDataDetailMeal(String idMeal) async {
     var isExistInDB = await _repository.getDataFromDB(idMeal);
-    print("isExistInDB bloc ");
-    print(isExistInDB.toString());
+
     isExistInDB == null
         ? _isFavorite.sink.add(false)
         : _isFavorite.sink.add(true);
@@ -37,8 +35,8 @@ class MealDetailBloc {
 
   insert(DetailMeals data) async {
     _dataMeal = MealEntity.fromJson(data.meals.first.toJson());
-    int a = await _dbHelper.insertMeal(_dataMeal);
-    if (a > 0) {
+    int isSuccessInsert = await _dbHelper.insertMeal(_dataMeal);
+    if (isSuccessInsert > 0) {
       _isFavorite.sink.add(true);
     } else {
       _isFavorite.sink.add(false);

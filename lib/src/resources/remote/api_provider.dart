@@ -37,9 +37,7 @@ class ApiProvider {
     String endpoint = '$baseUrl/lookup.php?i=$id';
     http.Response response = await http.get(endpoint);
     if (response.statusCode == 200) {
-      print("response.body" + response.body.toString());
       var jsonResponse = json.decode(response.body);
-      print("jsonResponse" + jsonResponse.toString());
       return DetailMeals.fromJson(jsonResponse);
     } else {
       throw Exception('Failed load data');

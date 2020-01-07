@@ -13,7 +13,7 @@ class Seafood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MealBloc mealBloc = MealProvider.of(context);
-    //mealBloc.storeContext(context);
+    mealBloc.storeContext(context);
     mealBloc.fetchAllDataMeals('Seafood');
 
     return Scaffold(body: getListSeafood(mealBloc));

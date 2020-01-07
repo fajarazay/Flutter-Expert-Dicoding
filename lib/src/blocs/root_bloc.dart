@@ -12,10 +12,8 @@ class RootBloc {
 
   NavBarEnum defaultItem = NavBarEnum.DESSERT;
 
-  //add stream
   Stream<NavBarEnum> get navBar => _navBar.stream;
 
-  //add sink
   Function(NavBarEnum) get changeNavBar => _navBar.sink.add;
 
   final _repository = Repository();
@@ -54,6 +52,4 @@ class RootBloc {
     _navBar.close();
     _mealsFetcher.close();
   }
-
-
 }

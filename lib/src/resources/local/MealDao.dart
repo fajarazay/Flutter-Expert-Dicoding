@@ -69,7 +69,6 @@ class MealDao {
 
   Future<DetailMeals> getFavMealById(idMeal) async {
     var listMealEntity = await selectByIdMeal(idMeal);
-    print("listMealEntity.isEmpty " + listMealEntity.isEmpty.toString());
     return listMealEntity.isEmpty
         ? null
         : DetailMeals.fromJson(listMealEntity.first);

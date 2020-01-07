@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expert_dicoding/src/blocs/root_bloc.dart';
 import 'package:flutter_expert_dicoding/src/blocs/root_provider.dart';
+import 'package:flutter_expert_dicoding/src/commons/key.dart';
 import 'package:flutter_expert_dicoding/src/model/meals.dart';
 import 'package:flutter_expert_dicoding/src/ui/dessert/dessert.dart';
 import 'package:flutter_expert_dicoding/src/ui/favorite/favorite_screen.dart';
@@ -56,7 +57,6 @@ class RootScreen extends StatelessWidget {
             size: 25.0,
           ),
           onPressed: () {
-            //  bloc.goToSearchMealScreen();
             showSearch(context: context, delegate: DataSearch());
           },
         ),
@@ -73,6 +73,7 @@ class RootScreen extends StatelessWidget {
         builder: (context, AsyncSnapshot<NavBarEnum> snapshot) {
           int index = snapshot?.data?.index ?? 0;
           return BottomNavigationBar(
+            key: Key(KEY_BOTTOM_NAV_BAR),
             currentIndex: index,
             onTap: bloc.pickItem,
             type: BottomNavigationBarType.fixed,
@@ -96,11 +97,6 @@ class RootScreen extends StatelessWidget {
 }
 
 class DataSearch extends SearchDelegate<String> {
-  final listDummy = ["arsenal", "Man city", "Liverpoool"];
-  final listDummyResult = ["a", "b", "c"];
-
-  final listEmpty = [];
-
   @override
   List<Widget> buildActions(BuildContext context) {
     final RootBloc bloc = RootProvider.of(context);
@@ -127,22 +123,41 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final resultList = query.isEmpty ? listEmpty : listDummyResult;
+    final RootBloc bloc = RootProvider.of(context);
 
-    return ListView.builder(
-      itemBuilder: (context, index) => ListTile(
-        leading: Icon(Icons.access_alarms),
-        title: Text(resultList[index]),
-      ),
-      itemCount: resultList.length,
-    );
+    if (query.length > 2) {
+      return (StreamBuilder(
+          stream: bloc.getAllMeals,
+          builder: (context, AsyncSnapshot<List<Meal>> snapshot) {
+            if (snapshot.hasData) {
+              return ListSearchMeals(
+                listDataMeals: snapshot.data,
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                  child: Text(
+                    "${snapshot.error}",
+                    textAlign: TextAlign.center,
+                  ));
+            } else if (snapshot.data == null) {
+              return Container(
+                  child: Center(
+                    child: Text("Data not found"),
+                  ));
+            }
+            // By default, show a loading spinner.
+            return Center(child: CircularProgressIndicator());
+          }));
+    } else {
+      return Container();
+    }
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     final RootBloc bloc = RootProvider.of(context);
 
-    if (query.length > 3) {
+    if (query.length > 2) {
       return (StreamBuilder(
           stream: bloc.getAllMeals,
           builder: (context, AsyncSnapshot<List<Meal>> snapshot) {
@@ -156,6 +171,11 @@ class DataSearch extends SearchDelegate<String> {
                 "${snapshot.error}",
                 textAlign: TextAlign.center,
               ));
+            } else if (snapshot.data == null) {
+              return Container(
+                  child: Center(
+                    child: Text("Data not found"),
+                  ));
             }
             // By default, show a loading spinner.
             return Center(child: CircularProgressIndicator());
@@ -163,13 +183,5 @@ class DataSearch extends SearchDelegate<String> {
     } else {
       return Container();
     }
-    // ListSearchMeals()
-//      ListView.builder(
-//      itemBuilder: (context, index) => ListTile(
-//        leading: Icon(Icons.access_alarms),
-//        title: Text(suggestionList[index]),
-//      ),
-//      itemCount: suggestionList.length,
-//    );
   }
 }

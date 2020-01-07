@@ -13,6 +13,7 @@ class Dessert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MealBloc mealBloc = MealProvider.of(context);
+    mealBloc.storeContext(context);
     mealBloc.fetchAllDataMeals('Dessert');
 
     return Scaffold(body: getListDessert(mealBloc));
@@ -23,10 +24,9 @@ class Dessert extends StatelessWidget {
         stream: mealBloc.getAllMeals,
         builder: (context, AsyncSnapshot<List<Meal>> snapshot) {
           if (snapshot.hasData) {
-            return
-            ListMeals(
-                      listDataMeals: snapshot.data,
-                 );
+            return ListMeals(
+              listDataMeals: snapshot.data,
+            );
           } else if (snapshot.hasError) {
             return Center(
                 child: Text(

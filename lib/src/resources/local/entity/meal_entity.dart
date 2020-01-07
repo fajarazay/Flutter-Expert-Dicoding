@@ -10,12 +10,6 @@ class DetailMealEntity {
         meals.add(new MealEntity.fromJson(v));
       });
     }
-//    else {
-//      var meal = {};
-//      meal["meals"] = data;
-//      String str = json.encode(meal);
-//      print('no json meals: ' + str);
-//    }
   }
 
   Map<String, dynamic> toJson() {
